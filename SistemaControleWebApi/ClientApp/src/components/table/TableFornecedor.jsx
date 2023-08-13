@@ -101,70 +101,74 @@ function TableFornecedor() {
 
     const handleSalvarClick = () => {
 
-        valida(razaoSocial, cnpj, email, uf, nomeContato)
+        if (razaoSocial == '' || cnpj == '' || email == '' || uf == '' || nomeContato == '') {
+            alert("preencha todos os campos")
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "idFornecedor": idFornecedor,
+                "razaoSocial": razaoSocial,
+                "cnpj": cnpj,
+                "uf": email,
+                "email": uf,
+                "nomeContato": nomeContato
+            });
 
-        var raw = JSON.stringify({
-            "idFornecedor": idFornecedor,
-            "razaoSocial": razaoSocial,
-            "cnpj": cnpj,
-            "uf": email,
-            "email": uf,
-            "nomeContato": nomeContato
-        });
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+            fetch("https://localhost:44324/v1/Fornecedor/Alterar-fornecedor", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
+        }
 
-        fetch("https://localhost:44324/v1/Fornecedor/Alterar-fornecedor", requestOptions)
-            .then(response => response.json())
-            .then(result => console.log(result))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
+       
     }
     const handleCriarClick = () => {
 
-        valida(razaoSocial, cnpj, email, uf, nomeContato)
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-            "idFornecedor": 0,
-            "razaoSocial": razaoSocial,
-            "cnpj": cnpj,
-            "uf": email,
-            "email": uf,
-            "nomeContato": nomeContato
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://localhost:44324/v1/Fornecedor/Enviar-fornecedor", requestOptions)
-            .then(response => response.json())
-            .then(result => console.log(result))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
-    }
-
-    function valida(razaoSocial, cnpj, email, uf, nomeContato) {
         if (razaoSocial == '' || cnpj == '' || email == '' || uf == '' || nomeContato == '') {
             alert("preencha todos os campos")
+        } else {
+         
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "idFornecedor": 0,
+                "razaoSocial": razaoSocial,
+                "cnpj": cnpj,
+                "uf": email,
+                "email": uf,
+                "nomeContato": nomeContato
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://localhost:44324/v1/Fornecedor/Enviar-fornecedor", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
         }
+
+        
     }
 
     return (

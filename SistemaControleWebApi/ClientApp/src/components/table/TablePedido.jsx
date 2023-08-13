@@ -87,73 +87,77 @@ function TablePedido() {
         setVlrTotalPedido(event.target.value);
     };
 
-    function valida(dtPedido, produto, qtProduto, fornecedor, vlrTotalPedido) {
+
+    const handleSalvarClick = () => {
 
         if (dtPedido == '' || produto == '' || qtProduto == '' || fornecedor == '' || vlrTotalPedido == '') {
             alert("preencha todos os campos")
         }
-    }
+        else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            console.log(qtProduto)
+            var raw = JSON.stringify({
+                "codigoPedido": codigoPedido,
+                "dtPedido": dtPedido,
+                "produto": produto,
+                "qtProduto": qtProduto,
+                "fornecedor": fornecedor,
+                "vlrTotalPedido": vlrTotalPedido
+            });
 
-    const handleSalvarClick = () => {
-        valida(dtPedido, produto, qtProduto, fornecedor, vlrTotalPedido);
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        console.log(qtProduto)
-        var raw = JSON.stringify({
-            "codigoPedido": codigoPedido,
-            "dtPedido": dtPedido,
-            "produto": produto,
-            "qtProduto": qtProduto,
-            "fornecedor": fornecedor,
-            "vlrTotalPedido": vlrTotalPedido
-        });
+            fetch("https://localhost:44324/v1/Pedido/Alterar-Pedido", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
+        }
 
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://localhost:44324/v1/Pedido/Alterar-Pedido", requestOptions)
-            .then(response => response.json())
-            .then(result => console.log(result))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
+       
     }
 
     const handleCriarClick = () => {
 
-        valida(dtPedido, produto, qtProduto, fornecedor, vlrTotalPedido);
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        if (dtPedido == '' || produto == '' || qtProduto == '' || fornecedor == '' || vlrTotalPedido == '') {
+            alert("preencha todos os campos")
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-            "codigoPedido": 0,
-            "dtPedido": dtPedido,
-            "produto": produto,
-            "qtProduto": qtProduto,
-            "fornecedor": fornecedor,
-            "vlrTotalPedido": vlrTotalPedido
-        });
+            var raw = JSON.stringify({
+                "codigoPedido": 0,
+                "dtPedido": dtPedido,
+                "produto": produto,
+                "qtProduto": qtProduto,
+                "fornecedor": fornecedor,
+                "vlrTotalPedido": vlrTotalPedido
+            });
 
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        fetch("https://localhost:44324/v1/Pedido/Enviar-Pedido", requestOptions)
-            .then(response => response.json())
-            .then(result => console.log(result))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
+            fetch("https://localhost:44324/v1/Pedido/Enviar-Pedido", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
+        }
+        
     }
 
     return(

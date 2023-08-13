@@ -81,69 +81,72 @@ function TableProduto() {
 
     const handleSalvarClick = () => {
 
-        valida( descricao, dtCadastro, valorProduto);
+        if (descricao == '' || dtCadastro == '' || valorProduto == '') {
+            alert("preencha todos os campos")
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "codigo": codigo,
+                "descricao": descricao,
+                "dtCadastro": dtCadastro,
+                "valorProduto": valorProduto
+            });
+            console.log(raw)
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        var raw = JSON.stringify({
-            "codigo": codigo,
-            "descricao": descricao,
-            "dtCadastro": dtCadastro,
-            "valorProduto": valorProduto
-        });
-        console.log(raw)
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://localhost:44324/v1/Produto/Alterar-Produto", requestOptions)
-            .then(response => response.json())
-            .then(result => alert("Alterado com sucesso!"))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
+            fetch("https://localhost:44324/v1/Produto/Alterar-Produto", requestOptions)
+                .then(response => response.json())
+                .then(result => alert("Alterado com sucesso!"))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
+        }
+     
     }
 
     const handleCriarClick = () => {
 
-        valida( descricao, dtCadastro, valorProduto);
-
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-            "codigo": 0,
-            "descricao": descricao,
-            "dtCadastro": dtCadastro,
-            "valorProduto": valorProduto
-        });
-
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-        };
-
-        fetch("https://localhost:44324/v1/Produto/Enviar-Produto", requestOptions)
-            .then(response => response.json())
-            .then(result => alert("Criado com sucesso!"))
-            .finally(() => {
-                buscar()
-            })
-            .catch(error => console.log('error', error));
-    }
-
-    function valida( descricao, dtCadastro, valorProduto) {
-        if ( descricao == '' || dtCadastro == '' || valorProduto == '' ) {
+        if (descricao == '' || dtCadastro == '' || valorProduto == '') {
             alert("preencha todos os campos")
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "codigo": 0,
+                "descricao": descricao,
+                "dtCadastro": dtCadastro,
+                "valorProduto": valorProduto
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://localhost:44324/v1/Produto/Enviar-Produto", requestOptions)
+                .then(response => response.json())
+                .then(result => alert("Criado com sucesso!"))
+                .finally(() => {
+                    buscar()
+                })
+                .catch(error => console.log('error', error));
         }
+
+        
     }
+
+   
 
     return(
         <>            
