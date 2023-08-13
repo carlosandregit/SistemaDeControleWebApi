@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "QmBxGA1OSM8p4f5cjmjUa0JOKfu9JvaLp33Sp8jqh7o=",
+  "Source": "SistemaControleWebApi",
+  "BasePath": "_content/SistemaControleWebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

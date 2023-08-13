@@ -1,0 +1,42 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form input {
+  background-color: #EFEFEF;
+  border-radius: 4px;
+  width: 550px;
+  padding: 1em;
+  margin-bottom: .5em;
+}
+
+.thead_dark {
+    background-color: grey;
+    color: #EFEFEF;
+   
+}
+
+thead tr th {
+    padding: 10px;
+}
+.table {
+    border-radius: 10px;
+    /*background-color: white;*/
+}
+td{
+    border-left:solid black 1px;
+    /*border-right:solid black 1px;*/
+}
+
+button {
+    color: rgba(255, 255, 255, 0.838);
+    background-color: rgb(12, 12, 255);
+    border: none;
+    padding: 0.1rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: 300ms;
+}
